@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.TextField?>
 <VBox fx:controller="main.Controller"
-      xmlns:fx="http://javafx.com/fxml" alignment="center" minWidth="1024" minHeight="960">
+      xmlns:fx="http://javafx.com/fxml" alignment="center" minWidth="1024" minHeight="960" fx:id="layout">
     <BorderPane fx:id="header" maxHeight="100" prefWidth="Infinity">
         <left>
             <ImageView>
@@ -24,9 +24,16 @@
             </ImageView>
         </left>
         <right>
-            <TextField fx:id="searchField">
-
-            </TextField>
+            <BorderPane>
+                <center>
+                    <TextField fx:id="searchField" prefWidth="500" promptText="Фильмы, сериалы, персоны" prefHeight="65"
+                    styleClass="searchField">
+                        <BorderPane.margin>
+                            <Insets right="40"/>
+                        </BorderPane.margin>
+                    </TextField>
+                </center>
+            </BorderPane>
         </right>
     </BorderPane>
     <Region VBox.vgrow="ALWAYS"/>

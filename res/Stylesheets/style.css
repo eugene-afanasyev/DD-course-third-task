@@ -12,3 +12,22 @@
 #header .ImageView {
     -fx-start-margin: "10q";
 }
+
+#searchField {
+    -fx-font-size: 22;
+    -fx-font-weight: 400;
+    -fx-font-family: SansSerif;
+    -fx-background-radius: 5;
+    -fx-prompt-text-fill: #6d6d67;
+    -fx-padding: 8;
+}
+
+.searchField {
+    -fx-background-color: #242424;
+    -fx-text-fill: #fffff8;
+}
+
+.searchFieldFocused {
+    -fx-background-color: #f2f2f2;
+    -fx-text-fill: #200400;
+}
