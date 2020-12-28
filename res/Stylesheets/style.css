@@ -1,0 +1,14 @@
+#header {
+    -fx-max-height: 100px;
+    -fx-background-color: #090909;
+}
+
+#header .Label {
+    -fx-font-family: "SansSerif";
+    -fx-font-size: 22;
+    -fx-text-fill: #f4f4f4;
+}
+
+#header .ImageView {
+    -fx-start-margin: "10q";
+}
