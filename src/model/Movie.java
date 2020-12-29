@@ -19,7 +19,7 @@ public class Movie {
 
     private String description;
 
-    private long filmLength;
+    private String filmLength;
 
     private ArrayList<String> countries;
 
@@ -51,7 +51,7 @@ public class Movie {
         this.description = description;
     }
 
-    public void setFilmLength(long filmLength) {
+    public void setFilmLength(String filmLength) {
         this.filmLength = filmLength;
     }
 
@@ -99,7 +99,7 @@ public class Movie {
         return description;
     }
 
-    public long getFilmLength() {
+    public String getFilmLength() {
         return filmLength;
     }
 
