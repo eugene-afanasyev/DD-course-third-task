@@ -2,102 +2,80 @@ package model;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import javafx.util.Pair;
 
 import java.net.URL;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class Movie {
-    private int id;
+    private int filmId;
 
-    private String url;
+    private String nameRu;
+    private String nameEn;
 
-    private String type;
-
-    private String title;
-    private String title_alternative;
-
-    private String tagline;
+    private int year;
 
     private String description;
-    private String year;
 
-    private URL poster;
-    private URL trailer;
+    private long filmLength;
 
-    private String age;
+    private ArrayList<String> countries;
 
-    private ArrayList<String> actors;
+    private ArrayList<String> genres;
 
-    private ArrayList<String> Genres;
+    private double rating;
+    private int ratingVoteCount;
 
-    private int rating_kinopoisk;
+    private URL posterUrl;
+    private URL posterUrlPreview;
 
-    private int rating_imdb;
-
-    private ArrayList<URL> frames;
-
-    public int getId() {
-        return id;
+    public int getFilmId() {
+        return filmId;
     }
 
-    public String getUrl() {
-        return url;
+    public String getNameRu() {
+        return nameRu;
     }
 
-    public String getType() {
-        return type;
+    public String getNameEn() {
+        return nameEn;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getTitle_alternative() {
-        return title_alternative;
-    }
-
-    public String getTagline() {
-        return tagline;
+    public int getYear() {
+        return year;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getYear() {
-        return year;
+    public long getFilmLength() {
+        return filmLength;
     }
 
-    public URL getPoster() {
-        return poster;
-    }
-
-    public URL getTrailer() {
-        return trailer;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public ArrayList<String> getActors() {
-        return actors;
+    public ArrayList<String> getCountries() {
+        return countries;
     }
 
     public ArrayList<String> getGenres() {
-        return Genres;
+        return genres;
     }
 
-    public int getRating_kinopoisk() {
-        return rating_kinopoisk;
+    public double getRating() {
+        return rating;
     }
 
-    public int getRating_imdb() {
-        return rating_imdb;
+    public int getRatingVoteCount() {
+        return ratingVoteCount;
     }
 
-    public ArrayList<URL> getFrames() {
-        return frames;
+    public URL getPosterUrl() {
+        return posterUrl;
+    }
+
+    public URL getPosterUrlPreview() {
+        return posterUrlPreview;
     }
 }
