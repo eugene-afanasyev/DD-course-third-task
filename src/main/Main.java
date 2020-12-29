@@ -7,8 +7,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import kinopoisk.KinopoiskAPI;
+import org.apache.http.HttpHeaders;
+import org.apache.http.client.fluent.Content;
+import org.apache.http.client.fluent.Request;
 
 public class Main extends Application {
+    KinopoiskAPI kinopoiskAPI = new KinopoiskAPI();
+
     private Stage mainStage;
     private Scene mainScene;
 

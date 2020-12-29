@@ -10,11 +10,18 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import model.Movie;
+
+import java.util.HashMap;
 
 public class Controller {
+    private HashMap<Integer, Movie> movies;
+
     @FXML
-    public TextField searchField;
-    public BorderPane header;
+    private TextField searchField;
+
+    @FXML
+    private BorderPane header;
 
     public void initialize() {
         initialzieSearchField();
