@@ -31,6 +31,54 @@ public class Movie {
     private URL posterUrl;
     private URL posterUrlPreview;
 
+    public void setFilmId(int filmId) {
+        this.filmId = filmId;
+    }
+
+    public void setNameRu(String nameRu) {
+        this.nameRu = nameRu;
+    }
+
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setFilmLength(long filmLength) {
+        this.filmLength = filmLength;
+    }
+
+    public void setCountries(ArrayList<String> countries) {
+        this.countries = countries;
+    }
+
+    public void setGenres(ArrayList<String> genres) {
+        this.genres = genres;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public void setRatingVoteCount(int ratingVoteCount) {
+        this.ratingVoteCount = ratingVoteCount;
+    }
+
+    public void setPosterUrl(URL posterUrl) {
+        this.posterUrl = posterUrl;
+    }
+
+    public void setPosterUrlPreview(URL posterUrlPreview) {
+        this.posterUrlPreview = posterUrlPreview;
+    }
+
     public int getFilmId() {
         return filmId;
     }
