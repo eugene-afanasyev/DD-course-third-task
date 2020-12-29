@@ -74,7 +74,7 @@ public class KinopoiskAPI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.print(jsonResponse.getKeyword());
-        return gson.fromJson(new JsonObject(), Movie.class);
+        System.out.print(jsonResponse.getFilms().get(0).getFilmId());
+        return jsonResponse.getFilms().get(0);
     }
 }
