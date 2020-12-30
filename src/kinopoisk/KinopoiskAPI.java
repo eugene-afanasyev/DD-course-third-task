@@ -52,7 +52,7 @@ public class KinopoiskAPI {
     static String token = "9cc79179-7ed2-4297-8973-054018bcc494";
     static String host = "https://kinopoiskapiunofficial.tech/api/v2.1";
 
-    public Movie getMovieByKeyword(String keyword) {
+    public List<Movie> getMovieByKeywords(String keyword) {
         String rawJson = null;
         final CloseableHttpClient httpclient = HttpClients.createDefault();
         JSONResponse jsonResponse = new JSONResponse();
@@ -75,6 +75,6 @@ public class KinopoiskAPI {
             e.printStackTrace();
         }
         System.out.print(jsonResponse.getFilms().get(0).getFilmId());
-        return jsonResponse.getFilms().get(0);
+        return jsonResponse.getFilms();
     }
 }

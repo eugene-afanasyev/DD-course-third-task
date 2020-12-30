@@ -8,9 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import kinopoisk.KinopoiskAPI;
+import model.Movie;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.fluent.Content;
 import org.apache.http.client.fluent.Request;
+
+import java.util.List;
 
 public class Main extends Application {
     KinopoiskAPI kinopoiskAPI = new KinopoiskAPI();
@@ -28,6 +31,8 @@ public class Main extends Application {
 
         mainStage.setScene(mainScene);
         mainStage.show();
+
+        List <Movie> movies = kinopoiskAPI.getMovieByKeywords("Matrix");
     }
 
 
