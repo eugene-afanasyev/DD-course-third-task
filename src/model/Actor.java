@@ -7,8 +7,13 @@ public class Actor {
 
     private String nameRu;
     private String nameEn;
+    private String description;
 
     private URL posterURL;
+
+    public String getDescription() {
+        return description;
+    }
 
     public int getId() {
         return id;
@@ -24,6 +29,10 @@ public class Actor {
 
     public URL getPosterURL() {
         return posterURL;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setId(int id) {

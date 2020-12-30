@@ -24,6 +24,7 @@ public class ActorDeserializer implements JsonDeserializer<Actor> {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        actor.setDescription(jsonObject.get("description").getAsString());
 
         return actor;
     }
