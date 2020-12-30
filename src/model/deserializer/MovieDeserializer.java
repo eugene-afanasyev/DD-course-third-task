@@ -20,47 +20,47 @@ public class MovieDeserializer implements JsonDeserializer<Movie> {
 
         movie.setFilmId(jsonObject.get("filmId").getAsInt());
 
-        if(jsonObject.get("nameRu") != null)
+        if(!(jsonObject.get("nameRu") instanceof JsonNull))
             movie.setNameRu(jsonObject.get("nameRu").getAsString());
 
-        if(jsonObject.get("nameEn") != null)
+        if(!(jsonObject.get("nameEn") instanceof JsonNull))
             movie.setNameEn(jsonObject.get("nameEn").getAsString());
 
         try {
-            if(jsonObject.get("webUrl") != null)
+            if(!(jsonObject.get("webUrl") instanceof JsonNull))
                 movie.setWebUrl(new URL(jsonObject.get("webUrl").getAsString()));
 
-            if(jsonObject.get("posterUrl") != null)
+            if(!(jsonObject.get("posterUrl") instanceof JsonNull))
                 movie.setPosterUrl(new URL(jsonObject.get("posterUrl").getAsString()));
 
-            if(jsonObject.get("posterUrlPreview") != null)
+            if(!(jsonObject.get("posterUrlPreview") instanceof JsonNull))
                 movie.setPosterUrl(new URL(jsonObject.get("posterUrlPreview").getAsString()));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
-        if(jsonObject.get("year") != null)
+        if(!(jsonObject.get("year") instanceof JsonNull))
             movie.setYear(jsonObject.get("year").getAsString());
 
-        if(jsonObject.get("filmLength") != null)
-            movie.setFilmLength(jsonObject.get("filmLength").getAsString());
+        if(!(jsonObject.get("filmLength") instanceof JsonNull))
+                movie.setFilmLength(jsonObject.get("filmLength").getAsString());
 
-        if(jsonObject.get("slogan") != null)
+        if(!(jsonObject.get("slogan") instanceof JsonNull))
             movie.setSlogan(jsonObject.get("slogan").getAsString());
 
-        if(jsonObject.get("description") != null)
+        if(!(jsonObject.get("description") instanceof JsonNull))
             movie.setDescription(jsonObject.get("description").getAsString());
 
-        if(jsonObject.get("type") != null)
+        if(!(jsonObject.get("type") instanceof JsonNull))
             movie.setType(jsonObject.get("type").getAsString());
 
-        if(jsonObject.get("ratingAgeLimits") != null)
+        if(!(jsonObject.get("ratingAgeLimits") instanceof JsonNull))
             movie.setRatingAgeLimits(jsonObject.get("ratingAgeLimits").getAsInt());
 
-        if(jsonObject.get("premiereRu") != null)
+        if(!(jsonObject.get("premiereRu") instanceof JsonNull))
             movie.setPremiereRu(jsonObject.get("premiereRu").getAsString());
 
-        if(jsonObject.get("premiereWorld") != null)
+        if(!(jsonObject.get("premiereWorld") instanceof JsonNull))
             movie.setPremiereWorld(jsonObject.get("premiereWorld").getAsString());
 
         JsonArray countries = jsonObject.getAsJsonArray("countries");
