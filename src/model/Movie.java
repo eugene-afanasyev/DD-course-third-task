@@ -37,8 +37,9 @@ public class Movie {
 
     private ArrayList<String> genres;
 
-    private String rating;
-    private int ratingVoteCount;
+    public void setWebUrl(URL webUrl) {
+        this.webUrl = webUrl;
+    }
 
     public void setFilmId(int filmId) {
         this.filmId = filmId;
@@ -52,48 +53,16 @@ public class Movie {
         this.nameEn = nameEn;
     }
 
-    public void setWebUrl(URL webUrl) {
-        this.webUrl = webUrl;
-    }
-
-    public void setPosterUrl(URL posterUrl) {
-        this.posterUrl = posterUrl;
-    }
-
-    public void setPosterUrlPreview(URL posterUrlPreview) {
-        this.posterUrlPreview = posterUrlPreview;
-    }
-
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public void setFilmLength(String filmLength) {
-        this.filmLength = filmLength;
-    }
-
-    public void setSlogan(String slogan) {
-        this.slogan = slogan;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setRatingAgeLimits(int ratingAgeLimits) {
-        this.ratingAgeLimits = ratingAgeLimits;
-    }
-
-    public void setPremiereRu(String premiereRu) {
-        this.premiereRu = premiereRu;
-    }
-
-    public void setPremiereWorld(String premiereWorld) {
-        this.premiereWorld = premiereWorld;
+    public void setFilmLength(String filmLength) {
+        this.filmLength = filmLength;
     }
 
     public void setCountries(ArrayList<String> countries) {
@@ -104,14 +73,17 @@ public class Movie {
         this.genres = genres;
     }
 
-    public void setRating(String rating) {
-        this.rating = rating;
+    public void setPosterUrl(URL posterUrl) {
+        this.posterUrl = posterUrl;
     }
 
-    public void setRatingVoteCount(int ratingVoteCount) {
-        this.ratingVoteCount = ratingVoteCount;
+    public void setPosterUrlPreview(URL posterUrlPreview) {
+        this.posterUrlPreview = posterUrlPreview;
     }
 
+    public URL getWebUrl() {
+        return webUrl;
+    }
     public int getFilmId() {
         return filmId;
     }
@@ -124,48 +96,16 @@ public class Movie {
         return nameEn;
     }
 
-    public URL getWebUrl() {
-        return webUrl;
-    }
-
-    public URL getPosterUrl() {
-        return posterUrl;
-    }
-
-    public URL getPosterUrlPreview() {
-        return posterUrlPreview;
-    }
-
     public String getYear() {
         return year;
-    }
-
-    public String getFilmLength() {
-        return filmLength;
-    }
-
-    public String getSlogan() {
-        return slogan;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public int getRatingAgeLimits() {
-        return ratingAgeLimits;
-    }
-
-    public String getPremiereRu() {
-        return premiereRu;
-    }
-
-    public String getPremiereWorld() {
-        return premiereWorld;
+    public String getFilmLength() {
+        return filmLength;
     }
 
     public ArrayList<String> getCountries() {
@@ -176,11 +116,11 @@ public class Movie {
         return genres;
     }
 
-    public String getRating() {
-        return rating;
+    public URL getPosterUrl() {
+        return posterUrl;
     }
 
-    public int getRatingVoteCount() {
-        return ratingVoteCount;
+    public URL getPosterUrlPreview() {
+        return posterUrlPreview;
     }
 }
