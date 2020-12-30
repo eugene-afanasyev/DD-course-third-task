@@ -15,7 +15,7 @@ public class Movie {
     private String nameRu;
     private String nameEn;
 
-    private int year;
+    private String year;
 
     private String description;
 
@@ -25,7 +25,7 @@ public class Movie {
 
     private ArrayList<String> genres;
 
-    private double rating;
+    private String rating;
     private int ratingVoteCount;
 
     private URL posterUrl;
@@ -43,7 +43,7 @@ public class Movie {
         this.nameEn = nameEn;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
@@ -63,7 +63,7 @@ public class Movie {
         this.genres = genres;
     }
 
-    public void setRating(double rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 
@@ -91,7 +91,7 @@ public class Movie {
         return nameEn;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
@@ -111,9 +111,7 @@ public class Movie {
         return genres;
     }
 
-    public double getRating() {
-        return rating;
-    }
+    public String getRating() { return rating; }
 
     public int getRatingVoteCount() {
         return ratingVoteCount;
