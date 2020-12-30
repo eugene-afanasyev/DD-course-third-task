@@ -14,47 +14,70 @@ public class MovieDeserializer implements JsonDeserializer<Movie> {
     public Movie deserialize(JsonElement src, Type type, JsonDeserializationContext context)
             throws JsonParseException {
         JsonObject jsonObject = src.getAsJsonObject();
+        jsonObject = jsonObject.getAsJsonObject("data");
 
         Movie movie = new Movie();
+
         movie.setFilmId(jsonObject.get("filmId").getAsInt());
-        movie.setNameRu(jsonObject.get("nameRu").getAsString());
-        movie.setNameEn(jsonObject.get("nameEn").getAsString());
-        movie.setYear(jsonObject.get("year").getAsString());
-        movie.setDescription(jsonObject.get("description").getAsString());
+
+        if(jsonObject.get("nameRu") != null)
+            movie.setNameRu(jsonObject.get("nameRu").getAsString());
+
+        if(jsonObject.get("nameEn") != null)
+            movie.setNameEn(jsonObject.get("nameEn").getAsString());
+
+        try {
+            if(jsonObject.get("webUrl") != null)
+                movie.setWebUrl(new URL(jsonObject.get("webUrl").getAsString()));
+
+            if(jsonObject.get("posterUrl") != null)
+                movie.setPosterUrl(new URL(jsonObject.get("posterUrl").getAsString()));
+
+            if(jsonObject.get("posterUrlPreview") != null)
+                movie.setPosterUrl(new URL(jsonObject.get("posterUrlPreview").getAsString()));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        if(jsonObject.get("year") != null)
+            movie.setYear(jsonObject.get("year").getAsString());
+
+        if(jsonObject.get("filmLength") != null)
+            movie.setFilmLength(jsonObject.get("filmLength").getAsString());
+
+        if(jsonObject.get("slogan") != null)
+            movie.setSlogan(jsonObject.get("slogan").getAsString());
+
+        if(jsonObject.get("description") != null)
+            movie.setDescription(jsonObject.get("description").getAsString());
+
+        if(jsonObject.get("type") != null)
+            movie.setType(jsonObject.get("type").getAsString());
+
+        if(jsonObject.get("ratingAgeLimits") != null)
+            movie.setRatingAgeLimits(jsonObject.get("ratingAgeLimits").getAsInt());
+
+        if(jsonObject.get("premiereRu") != null)
+            movie.setPremiereRu(jsonObject.get("premiereRu").getAsString());
+
+        if(jsonObject.get("premiereWorld") != null)
+            movie.setPremiereWorld(jsonObject.get("premiereWorld").getAsString());
 
         JsonArray countries = jsonObject.getAsJsonArray("countries");
         ArrayList<String> countriesList = new ArrayList<>();
         for (JsonElement country : countries) {
-            if (country != null && country.isJsonPrimitive())
-                countriesList.add(country.getAsString());
+            JsonObject jObj = country.getAsJsonObject();
+            countriesList.add(jObj.get("country").getAsString());
         }
         movie.setCountries(countriesList);
 
         JsonArray genres = jsonObject.getAsJsonArray("genres");
         ArrayList<String> genresList = new ArrayList<>();
         for (JsonElement genre : genres) {
-            if (genre != null && genre.isJsonPrimitive())
-                genresList.add(genre.getAsString());
+            JsonObject jObj = genre.getAsJsonObject();
+            genresList.add(jObj.get("genre").getAsString());
         }
         movie.setGenres(genresList);
-
-        if(jsonObject.get("rating") != null)
-            movie.setRating(jsonObject.get("rating").getAsString());
-
-        if (jsonObject.get("ratingVoteCount") != null)
-            movie.setRatingVoteCount(jsonObject.get("ratingVoteCount").getAsInt());
-
-        try {
-            movie.setPosterUrl(new URL(jsonObject.get("posterUrl").getAsString()));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            movie.setPosterUrlPreview(new URL(jsonObject.get("posterUrlPreview").getAsString()));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
 
         return movie;
     }

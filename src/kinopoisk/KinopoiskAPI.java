@@ -75,7 +75,7 @@ public class KinopoiskAPI {
         return jsonResponse.getFilms();
     }
 
-    public Movie getMovieById(String id) {
+    public Movie getMovieById(int id) {
         Movie movie = null;
 
         final CloseableHttpClient httpclient = HttpClients.createDefault();
