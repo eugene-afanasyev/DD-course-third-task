@@ -23,24 +23,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-class JSONResponse{
-    private String keyword;
-    private int pagesCount;
-    private List<Movie> films;
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public int getPagesCount() {
-        return pagesCount;
-    }
-
-    public List<Movie> getFilms() {
-        return films;
-    }
-}
-
 public class KinopoiskAPI {
     Gson gson = new GsonBuilder()
             .setPrettyPrinting()
@@ -54,7 +36,7 @@ public class KinopoiskAPI {
 
     public List<Movie> getMoviesByKeyword(String keyword) {
         final CloseableHttpClient httpclient = HttpClients.createDefault();
-        JSONResponse jsonResponse = new JSONResponse();
+        List<Movie> movies = new ArrayList<>();
 
         keyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
         String src = host_v2dot1 + "/films/search-by-keyword?keyword=" + keyword + "&page=1";
@@ -65,21 +47,25 @@ public class KinopoiskAPI {
                 CloseableHttpResponse response1 = httpclient.execute(httpGet)
         ){
             final HttpEntity entity = response1.getEntity();
-            InputStream source = entity.getContent();
-            Reader reader = new InputStreamReader(source);
-            jsonResponse = gson.fromJson(reader, JSONResponse.class);
+            JsonElement jsonElement = JsonParser.parseString(EntityUtils.toString(entity));
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            JsonArray jsonArray = jsonObject.get("films").getAsJsonArray();
+
+            for (JsonElement filmJson : jsonArray) {
+                JsonObject object = filmJson.getAsJsonObject();
+                movies.add(getMovieById(object.get("filmId").getAsInt()));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return jsonResponse.getFilms();
+        return movies;
     }
 
     public Movie getMovieById(int id) {
         Movie movie = null;
 
         final CloseableHttpClient httpclient = HttpClients.createDefault();
-        JSONResponse jsonResponse = new JSONResponse();
 
         String src = host_v2dot1 + "/films/" + id;
 
