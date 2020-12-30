@@ -18,19 +18,15 @@ import java.util.List;
 public class Main extends Application {
     KinopoiskAPI kinopoiskAPI = new KinopoiskAPI();
 
-    private Stage mainStage;
-    private Scene mainScene;
-
     @Override
     public void start(Stage primaryStage) throws Exception{
-        mainStage = primaryStage;
 
         Parent root = FXMLLoader.load(getClass().getResource("/Views/mainView.fxml"));
-        mainScene = new Scene(root, 1280, 766);
+        Scene mainScene = new Scene(root, 1280, 766);
         mainScene.getStylesheets().add(getClass().getResource("/Stylesheets/style.css").toExternalForm());
 
-        mainStage.setScene(mainScene);
-        mainStage.show();
+        primaryStage.setScene(mainScene);
+        primaryStage.show();
 
         List <Movie> movies = kinopoiskAPI.getMovieByKeywords("Matrix");
     }
