@@ -14,7 +14,7 @@
 <?import javafx.scene.control.TextField?>
 <VBox fx:controller="main.Controller"
       xmlns:fx="http://javafx.com/fxml" alignment="center" minWidth="1024" minHeight="960" fx:id="layout">
-    <BorderPane fx:id="header" maxHeight="100" prefWidth="Infinity">
+    <BorderPane fx:id="header" maxHeight="100" prefWidth="Infinity" minHeight="100">
         <left>
             <ImageView>
                 <BorderPane.margin>

@@ -1,5 +1,7 @@
 package main;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -8,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import kinopoisk.KinopoiskAPI;
+import model.Actor;
 import model.Movie;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.fluent.Content;
@@ -27,8 +30,6 @@ public class Main extends Application {
 
         primaryStage.setScene(mainScene);
         primaryStage.show();
-
-        List <Movie> movies = kinopoiskAPI.getMovieByKeywords("Matrix");
     }
 
 

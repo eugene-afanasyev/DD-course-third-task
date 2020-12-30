@@ -1,10 +1,9 @@
 package kinopoisk;
 
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import javafx.scene.Scene;
+import model.Actor;
 import model.Movie;
+import model.deserializer.ActorDeserializer;
 import model.deserializer.MovieDeserializer;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -19,10 +18,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 class JSONResponse{
@@ -47,22 +45,21 @@ public class KinopoiskAPI {
     Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(Movie.class, new MovieDeserializer())
+            .registerTypeAdapter(Actor.class, new ActorDeserializer())
             .create();
 
     static String token = "9cc79179-7ed2-4297-8973-054018bcc494";
-    static String host = "https://kinopoiskapiunofficial.tech/api/v2.1";
+    static String host_v2dot1 = "https://kinopoiskapiunofficial.tech/api/v2.1";
+    static String host_v1 = "https://kinopoiskapiunofficial.tech/api/v1";
 
     public List<Movie> getMovieByKeywords(String keyword) {
-        String rawJson = null;
         final CloseableHttpClient httpclient = HttpClients.createDefault();
         JSONResponse jsonResponse = new JSONResponse();
 
         keyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
-        String src = host + "/films/search-by-keyword?keyword=" + keyword + "&page=1";
+        String src = host_v2dot1 + "/films/search-by-keyword?keyword=" + keyword + "&page=1";
 
-        final HttpUriRequest httpGet = new HttpGet(src);
-        httpGet.addHeader(new BasicHeader("accept", "application/json"));
-        httpGet.addHeader(new BasicHeader("X-API-KEY", token));
+        final HttpUriRequest httpGet = buildHttpUriRequest(src);
 
         try (
                 CloseableHttpResponse response1 = httpclient.execute(httpGet)
@@ -76,5 +73,41 @@ public class KinopoiskAPI {
         }
 
         return jsonResponse.getFilms();
+    }
+
+    public List<Actor> getActorsByFilmId(int id) {
+        final CloseableHttpClient httpclient = HttpClients.createDefault();
+        List<Actor> actors = new ArrayList<>();
+
+        String src = host_v1 + "/staff?filmId=" + id;
+
+        final HttpUriRequest httpGet = buildHttpUriRequest(src);
+
+        try (
+                CloseableHttpResponse response1 = httpclient.execute(httpGet)
+        ){
+            final HttpEntity entity = response1.getEntity();
+            JsonElement jsonElement = JsonParser.parseString(EntityUtils.toString(entity));
+            JsonArray jsonArray = jsonElement.getAsJsonArray();
+            for (JsonElement actorJson : jsonArray) {
+                JsonObject jsonObject = actorJson.getAsJsonObject();
+                JsonPrimitive jsonPrimitive = jsonObject.getAsJsonPrimitive("professionKey");
+                if (jsonPrimitive.getAsString().equals("ACTOR")) {
+                    Actor actor = gson.fromJson(actorJson, Actor.class);
+                    actors.add(actor);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return actors;
+    }
+
+    private HttpUriRequest buildHttpUriRequest(String src) {
+        final HttpUriRequest httpGet = new HttpGet(src);
+        httpGet.addHeader(new BasicHeader("accept", "application/json"));
+        httpGet.addHeader(new BasicHeader("X-API-KEY", token));
+        return httpGet;
     }
 }
