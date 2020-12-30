@@ -52,7 +52,7 @@ public class KinopoiskAPI {
     static String host_v2dot1 = "https://kinopoiskapiunofficial.tech/api/v2.1";
     static String host_v1 = "https://kinopoiskapiunofficial.tech/api/v1";
 
-    public List<Movie> getMovieByKeywords(String keyword) {
+    public List<Movie> getMoviesByKeyword(String keyword) {
         final CloseableHttpClient httpclient = HttpClients.createDefault();
         JSONResponse jsonResponse = new JSONResponse();
 
@@ -73,6 +73,29 @@ public class KinopoiskAPI {
         }
 
         return jsonResponse.getFilms();
+    }
+
+    public Movie getMovieById(String id) {
+        Movie movie = null;
+
+        final CloseableHttpClient httpclient = HttpClients.createDefault();
+        JSONResponse jsonResponse = new JSONResponse();
+
+        String src = host_v2dot1 + "/films/" + id;
+
+        final HttpUriRequest httpGet = buildHttpUriRequest(src);
+
+        try (
+                CloseableHttpResponse response1 = httpclient.execute(httpGet)
+        ){
+            final HttpEntity entity = response1.getEntity();
+            JsonElement jsonElement = JsonParser.parseString(EntityUtils.toString(entity));
+            movie = gson.fromJson(jsonElement, Movie.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return movie;
     }
 
     public List<Actor> getActorsByFilmId(int id) {
