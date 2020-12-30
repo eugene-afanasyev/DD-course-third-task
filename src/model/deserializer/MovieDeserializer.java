@@ -19,26 +19,31 @@ public class MovieDeserializer implements JsonDeserializer<Movie> {
         movie.setFilmId(jsonObject.get("filmId").getAsInt());
         movie.setNameRu(jsonObject.get("nameRu").getAsString());
         movie.setNameEn(jsonObject.get("nameEn").getAsString());
-        movie.setYear(jsonObject.get("year").getAsInt());
+        movie.setYear(jsonObject.get("year").getAsString());
         movie.setDescription(jsonObject.get("description").getAsString());
 
-        JsonArray countries = jsonObject.get("countries").getAsJsonArray();
+        JsonArray countries = jsonObject.getAsJsonArray("countries");
         ArrayList<String> countriesList = new ArrayList<>();
-        for (int i = 0; i < countries.size(); i++) {
-            countriesList.add(countries.get(0).getAsString());
+        for (JsonElement country : countries) {
+            if (country != null && country.isJsonPrimitive())
+                countriesList.add(country.getAsString());
         }
         movie.setCountries(countriesList);
 
-        JsonArray genres = jsonObject.get("genres").getAsJsonArray();
+        JsonArray genres = jsonObject.getAsJsonArray("genres");
         ArrayList<String> genresList = new ArrayList<>();
-        for (int i = 0; i < genres.size(); i++) {
-            countriesList.add(genres.get(0).getAsString());
+        for (JsonElement genre : genres) {
+            if (genre != null && genre.isJsonPrimitive())
+                genresList.add(genre.getAsString());
         }
         movie.setGenres(genresList);
 
-        movie.setRating(jsonObject.get("rating").getAsDouble());
+        if(jsonObject.get("rating") != null)
+            movie.setRating(jsonObject.get("rating").getAsString());
 
-        movie.setRatingVoteCount(jsonObject.get("ratingVoteCount").getAsInt());
+        if (jsonObject.get("ratingVoteCount") != null)
+            movie.setRatingVoteCount(jsonObject.get("ratingVoteCount").getAsInt());
+
         try {
             movie.setPosterUrl(new URL(jsonObject.get("posterUrl").getAsString()));
         } catch (MalformedURLException e) {
