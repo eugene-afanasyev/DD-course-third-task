@@ -2,20 +2,23 @@ package main;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import kinopoisk.KinopoiskAPI;
 import model.Movie;
 
+import java.awt.*;
 import java.util.HashMap;
 
 public class Controller {
-    private HashMap<Integer, Movie> movies;
+    KinopoiskAPI api = new KinopoiskAPI();
+
+    @FXML
+    public VBox contentVBox;
 
     @FXML
     private TextField searchField;
@@ -24,10 +27,10 @@ public class Controller {
     private BorderPane header;
 
     public void initialize() {
-        initialzieSearchField();
+        initializeSearchField();
     }
 
-    public void initialzieSearchField() {
+    public void initializeSearchField() {
         searchField.setFocusTraversable(false);
 
         searchField.focusedProperty().addListener(new ChangeListener<Boolean>() {

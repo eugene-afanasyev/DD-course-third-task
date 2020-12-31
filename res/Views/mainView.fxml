@@ -36,5 +36,10 @@
             </BorderPane>
         </right>
     </BorderPane>
-    <Region VBox.vgrow="ALWAYS"/>
+    <VBox VBox.vgrow="ALWAYS" fx:id="contentVBox" styleClass="content" prefWidth="Infinity" minWidth="Infinity">
+        <ImageView>
+            <Image url="https://avatars.mds.yandex.net/get-kinopoisk-image/1704946/eed1de3a-5400-43b3-839e-22490389bf54/360">
+            </Image>
+        </ImageView>
+    </VBox>
 </VBox>

@@ -31,3 +31,8 @@
     -fx-background-color: #f2f2f2;
     -fx-text-fill: #200400;
 }
+
+.content {
+    -fx-background-image: url("https://kinopoiskapiunofficial.tech/images/posters/kp_small/301.jpg");
+    -fx-border-image-width: 100px;
+}
