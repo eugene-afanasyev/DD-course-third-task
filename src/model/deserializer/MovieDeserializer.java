@@ -34,7 +34,7 @@ public class MovieDeserializer implements JsonDeserializer<Movie> {
                 movie.setPosterUrl(new URL(jsonObject.get("posterUrl").getAsString()));
 
             if(!(jsonObject.get("posterUrlPreview") instanceof JsonNull))
-                movie.setPosterUrl(new URL(jsonObject.get("posterUrlPreview").getAsString()));
+                movie.setPosterUrlPreview(new URL(jsonObject.get("posterUrlPreview").getAsString()));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
