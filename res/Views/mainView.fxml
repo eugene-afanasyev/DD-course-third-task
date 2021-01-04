@@ -12,8 +12,10 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ScrollPane?>
 <VBox fx:controller="main.Controller"
-      xmlns:fx="http://javafx.com/fxml" alignment="center" minWidth="1024" minHeight="960" fx:id="layout">
+      xmlns:fx="http://javafx.com/fxml" alignment="TOP_CENTER" minWidth="1024" minHeight="960" fx:id="layout">
     <BorderPane fx:id="header" maxHeight="100" prefWidth="Infinity" minHeight="100">
         <left>
             <ImageView>
@@ -36,10 +38,6 @@
             </BorderPane>
         </right>
     </BorderPane>
-    <VBox VBox.vgrow="ALWAYS" fx:id="contentVBox" styleClass="content" prefWidth="Infinity" minWidth="Infinity">
-        <ImageView>
-            <Image url="https://avatars.mds.yandex.net/get-kinopoisk-image/1704946/eed1de3a-5400-43b3-839e-22490389bf54/360">
-            </Image>
-        </ImageView>
-    </VBox>
+    <StackPane fx:id="contentPage" minWidth="1024">
+    </StackPane>
 </VBox>

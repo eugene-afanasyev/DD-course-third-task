@@ -8,7 +8,9 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import kinopoisk.KinopoiskAPI;
 import model.Actor;
 import model.Movie;
@@ -26,6 +28,7 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("/Views/mainView.fxml"));
         Scene mainScene = new Scene(root, 1280, 766);
+        mainScene.setFill(null);
         mainScene.getStylesheets().add(getClass().getResource("/Stylesheets/style.css").toExternalForm());
 
         primaryStage.setScene(mainScene);
