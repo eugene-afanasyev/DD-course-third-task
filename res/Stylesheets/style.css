@@ -49,3 +49,17 @@
 .preview-image {
     -fx-background-radius: 5px;
 }
+
+.prop-name-label {
+    -fx-text-fill: #959595;
+    -fx-font-size: 22;
+    -fx-wrap-text: true;
+    -fx-alignment: center-left;
+}
+
+.prop-value-label {
+    -fx-text-fill: white;
+    -fx-font-size: 22;
+    -fx-wrap-text: true;
+    -fx-alignment: center-left;
+}

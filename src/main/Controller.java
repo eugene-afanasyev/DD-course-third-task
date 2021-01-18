@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
@@ -44,7 +45,7 @@ public class Controller {
 
     public void initialize() {
         initializeSearchField();
-        showFilmPageById(3491);
+        showFilmPageById(301);
     }
 
     public void initializeSearchField() {
@@ -90,13 +91,52 @@ public class Controller {
                 new BackgroundSize(contentWrapper.getPrefWidth(), contentWrapper.getPrefHeight(),
                         false, false, false, true));
         leftColumn.setBackground(new Background(moviePreviewBg));
-        // setting on left column content
+
+
+        // setting on center column content
         filmNameRu.setText(movie.getNameRu());
-        filmNameEn.setText(movie.getNameEn());
+        filmNameEn.setText(movie.getNameEn() + "   +" + movie.getRatingAgeLimits());
         filmDescription.setText(movie.getDescription());
+
+        generateInfoField("Год производства", movie.getYear());
+        String countries = new String("");
+        for (String country : movie.getCountries()) {
+            if (countries.equals(""))
+                countries = country;
+            else
+                countries += ", " + country;
+        }
+        generateInfoField("Страна", countries);
+
+        String genres = new String("");
+        for (String genre : movie.getGenres()) {
+            if (genres.equals(""))
+                genres = genre;
+            else
+                genres += ", " + genre;
+        }
+        generateInfoField("Жанры", genres);
+        generateInfoField("Слоган", movie.getSlogan());
+        generateInfoField("Премьера в Росcии", movie.getPremiereRu());
+        generateInfoField("Премьера в мире", movie.getPremiereWorld());
+        generateInfoField("Длительность", movie.getFilmLength());
 
         contentBorderPane.setLeft(leftColumn);
         contentBorderPane.setCenter(centerColumn);
         contentScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+    }
+
+    private void generateInfoField(String propName, String propValue) {
+        BorderPane pane = new BorderPane();
+        Label propNameLabel = new Label(propName);
+        Label propValueLabel = new Label(propValue);
+
+        propNameLabel.getStyleClass().add("prop-name-label");
+        propValueLabel.getStyleClass().add("prop-value-label");
+
+        pane.setLeft(propNameLabel);
+        pane.setRight(propValueLabel);
+
+        centerColumn.getChildren().addAll(pane, new Separator());
     }
 }
