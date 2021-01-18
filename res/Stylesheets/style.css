@@ -42,7 +42,7 @@
     -fx-background-color:transparent;
 }
 
-.scroll-pane > .viewport {  //not .scrollpane but .scroll-pane
+.scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
 

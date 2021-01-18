@@ -1,6 +1,7 @@
 package kinopoisk;
 
 import com.google.gson.*;
+import javafx.scene.image.Image;
 import model.Actor;
 import model.Movie;
 import model.deserializer.ActorDeserializer;
@@ -15,9 +16,7 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -77,6 +76,7 @@ public class KinopoiskAPI {
             final HttpEntity entity = response1.getEntity();
             JsonElement jsonElement = JsonParser.parseString(EntityUtils.toString(entity));
             movie = gson.fromJson(jsonElement, Movie.class);
+//            movie.setImages(getFramesById(movie.getFilmId()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,6 +111,43 @@ public class KinopoiskAPI {
         }
 
         return actors;
+    }
+
+    public ArrayList<Image> getFramesById(int id) {
+        final CloseableHttpClient httpclient = HttpClients.createDefault();
+        ArrayList<Image> images = new ArrayList<>();
+
+        String src = host_v2dot1 + "/films/" + id + "/frames";
+
+        final HttpUriRequest httpGet = buildHttpUriRequest(src);
+
+        try (
+                CloseableHttpResponse response1 = httpclient.execute(httpGet)
+        ){
+            final HttpEntity entity = response1.getEntity();
+            JsonElement jsonElement = JsonParser.parseString(EntityUtils.toString(entity));
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            JsonArray jsonArray = jsonObject.get("frames").getAsJsonArray();
+
+            int counter = 0;
+            for (JsonElement frameJson : jsonArray) {
+                if (counter == 5)
+                    break;
+
+                JsonObject object = frameJson.getAsJsonObject();
+                URL url = new URL(object.get("image").getAsString());
+                Image img = new Image(url.toExternalForm());
+                images.add(img);
+                System.out.println(url);
+
+                counter++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+
+        return images;
     }
 
     private HttpUriRequest buildHttpUriRequest(String src) {

@@ -25,7 +25,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         Parent root = FXMLLoader.load(getClass().getResource("/Views/mainView.fxml"));
         Scene mainScene = new Scene(root, 1280, 766);
         mainScene.setFill(null);

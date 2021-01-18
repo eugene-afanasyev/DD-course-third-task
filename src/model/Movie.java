@@ -2,12 +2,12 @@ package model;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import javafx.scene.image.Image;
 import javafx.util.Pair;
 
 import java.net.URL;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Movie {
     private int filmId;
@@ -36,6 +36,8 @@ public class Movie {
     private ArrayList<String> countries;
 
     private ArrayList<String> genres;
+
+    private ArrayList<Image> images;
 
     public void setFilmId(int filmId) {
         this.filmId = filmId;
@@ -101,6 +103,10 @@ public class Movie {
         this.genres = genres;
     }
 
+    public void setImages(ArrayList<Image> images) {
+        this.images = images;
+    }
+
     public int getFilmId() {
         return filmId;
     }
@@ -163,5 +169,9 @@ public class Movie {
 
     public ArrayList<String> getGenres() {
         return genres;
+    }
+
+    public ArrayList<Image> getImages() {
+        return images;
     }
 }
