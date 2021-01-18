@@ -37,8 +37,6 @@ public class Movie {
 
     private ArrayList<String> genres;
 
-    private ArrayList<Image> images;
-
     public void setFilmId(int filmId) {
         this.filmId = filmId;
     }
@@ -103,10 +101,6 @@ public class Movie {
         this.genres = genres;
     }
 
-    public void setImages(ArrayList<Image> images) {
-        this.images = images;
-    }
-
     public int getFilmId() {
         return filmId;
     }
@@ -169,9 +163,5 @@ public class Movie {
 
     public ArrayList<String> getGenres() {
         return genres;
-    }
-
-    public ArrayList<Image> getImages() {
-        return images;
     }
 }

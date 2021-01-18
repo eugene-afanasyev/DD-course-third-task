@@ -79,6 +79,9 @@ public class MovieDeserializer implements JsonDeserializer<Movie> {
         }
         movie.setGenres(genresList);
 
+        JsonObject ratingJson = src.getAsJsonObject();
+        ratingJson = ratingJson.getAsJsonObject("data");
+
         return movie;
     }
 }

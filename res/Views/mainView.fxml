@@ -51,18 +51,19 @@
                     </VBox>
                 </left>
                 <center>
-                    <VBox fx:id="centerColumn" style="-fx-padding: 20; -fx-spacing: 10;"    >
+                    <VBox fx:id="centerColumn" style="-fx-padding: 20; -fx-spacing: 10;" minWidth="700">
                         <Label fx:id="filmNameRu" style="-fx-text-fill: white; -fx-font-size: 40; -fx-font-weight: bold"/>
                         <Label fx:id="filmNameEn" style="-fx-text-fill: #868686; -fx-font-size: 28;"/>
                         <Label fx:id="filmDescription" style="-fx-text-fill: white; -fx-font-size: 18;
                          -fx-spacing: 0; -fx-wrap-text: true"/>
                         <Label text="О фильме" style="-fx-text-fill: white; -fx-font-size: 28;"/>
+                        <Label text="Кадры" style="-fx-text-fill: white; -fx-font-size: 28;"/>
                     </VBox>
                 </center>
-                <left>
-                    <Region minWidth="100">
-                    </Region>
-                </left>
+                <right>
+                    <VBox fx:id="rightColumn" style="-fx-padding: 20; -fx-spacing: 5;">
+                    </VBox>
+                </right>
             </BorderPane>
         </ScrollPane>
     </StackPane>

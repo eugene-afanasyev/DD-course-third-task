@@ -3,17 +3,22 @@ package main;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Side;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+
 import kinopoisk.KinopoiskAPI;
 import model.Movie;
+import model.Actor;
+
+import java.util.ArrayList;
 
 public class Controller {
     @FXML
@@ -36,6 +41,12 @@ public class Controller {
     public Label filmNameEn;
     @FXML
     public Label filmDescription;
+    @FXML
+    public VBox rightColumn;
+    @FXML
+    public Label ratingLabel;
+    @FXML
+    public Label ratingIMDBLabel;
     @FXML
     private TextField searchField;
     @FXML
@@ -120,6 +131,35 @@ public class Controller {
         generateInfoField("Премьера в Росcии", movie.getPremiereRu());
         generateInfoField("Премьера в мире", movie.getPremiereWorld());
         generateInfoField("Длительность", movie.getFilmLength());
+
+        // setting on film frames
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setMaxHeight(300);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        HBox hbox = new HBox();
+        hbox.setPrefWidth(centerColumn.getMinWidth());
+        hbox.setSpacing(5);
+        hbox.setStyle("-fx-background-color: #c5cffc");
+        hbox.setPadding(new Insets(15, 5, 15, 5));
+        scrollPane.setContent(hbox);
+
+        for (Image image : api.getFramesById(movie.getFilmId())) {
+            ImageView img = new ImageView(image);
+            img.setStyle("-fx-border-color: white; -fx-border-width: 3; -fx-border-radius: 3");
+            img.setPreserveRatio(true);
+            img.setFitHeight(300);
+            hbox.getChildren().add(img);
+        }
+        centerColumn.getChildren().add(scrollPane);
+
+        // setting on right column content
+        ArrayList<Actor> actors = api.getActorsByFilmId(movie.getFilmId());
+        for (Actor actor : actors) {
+            Label l = new Label(actor.getNameRu());
+            l.setStyle("-fx-wrap-text: true; -fx-font-size: 22; -fx-text-fill: #c9c9c9");
+            rightColumn.getChildren().add(l);
+        }
 
         contentBorderPane.setLeft(leftColumn);
         contentBorderPane.setCenter(centerColumn);

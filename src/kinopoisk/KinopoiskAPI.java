@@ -84,9 +84,9 @@ public class KinopoiskAPI {
         return movie;
     }
 
-    public List<Actor> getActorsByFilmId(int id) {
+    public ArrayList<Actor> getActorsByFilmId(int id) {
         final CloseableHttpClient httpclient = HttpClients.createDefault();
-        List<Actor> actors = new ArrayList<>();
+        ArrayList<Actor> actors = new ArrayList<>();
 
         String src = host_v1 + "/staff?filmId=" + id;
 
@@ -138,8 +138,6 @@ public class KinopoiskAPI {
                 URL url = new URL(object.get("image").getAsString());
                 Image img = new Image(url.toExternalForm());
                 images.add(img);
-                System.out.println(url);
-
                 counter++;
             }
         } catch (IOException e) {

@@ -15,7 +15,7 @@
 
 #searchField {
     -fx-font-size: 22;
-    -fx-font-weight: 400px;
+    -fx-font-weight: 400;
     -fx-font-family: SansSerif;
     -fx-background-radius: 5;
     -fx-prompt-text-fill: #6d6d67;
