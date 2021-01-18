@@ -62,7 +62,7 @@ public class KinopoiskAPI {
     }
 
     public Movie getMovieById(int id) {
-        Movie movie = null;
+        Movie movie = new Movie();
 
         final CloseableHttpClient httpclient = HttpClients.createDefault();
 
@@ -76,7 +76,6 @@ public class KinopoiskAPI {
             final HttpEntity entity = response1.getEntity();
             JsonElement jsonElement = JsonParser.parseString(EntityUtils.toString(entity));
             movie = gson.fromJson(jsonElement, Movie.class);
-//            movie.setImages(getFramesById(movie.getFilmId()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,6 +110,25 @@ public class KinopoiskAPI {
         }
 
         return actors;
+    }
+
+    public Actor getActorById(int id) {
+        Actor actor = new Actor();
+
+        final CloseableHttpClient httpclient = HttpClients.createDefault();
+        String src = host_v1 + "/staff/" + id;
+        final HttpUriRequest httpGet = buildHttpUriRequest(src);
+        try (
+                CloseableHttpResponse response1 = httpclient.execute(httpGet)
+        ){
+            final HttpEntity entity = response1.getEntity();
+            JsonElement jsonElement = JsonParser.parseString(EntityUtils.toString(entity));
+            actor = gson.fromJson(jsonElement, Actor.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return actor;
     }
 
     public ArrayList<Image> getFramesById(int id) {

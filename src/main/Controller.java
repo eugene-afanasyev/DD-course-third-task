@@ -56,7 +56,8 @@ public class Controller {
 
     public void initialize() {
         initializeSearchField();
-        showFilmPageById(301);
+//        showFilmPageById(301);
+        api.getActorById(28630);
     }
 
     public void initializeSearchField() {
