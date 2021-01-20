@@ -19,7 +19,7 @@ public class Actor {
 
     private int age;
 
-    private ArrayList<Movie> films;
+    private ArrayList<Integer> filmsId;
 
     private URL posterURL;
 
@@ -59,8 +59,8 @@ public class Actor {
         return birthplace;
     }
 
-    public ArrayList<Movie> getFilms() {
-        return films;
+    public ArrayList<Integer> getFilmsId() {
+        return filmsId;
     }
 
     public int getAge() {
@@ -103,8 +103,8 @@ public class Actor {
         this.birthplace = birthplace;
     }
 
-    public void setFilms(ArrayList<Movie> films) {
-        this.films = films;
+    public void setFilmsId(ArrayList<Integer> filmsId) {
+        this.filmsId = filmsId;
     }
 
     public void setAge(int age) {

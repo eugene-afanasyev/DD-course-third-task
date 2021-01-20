@@ -38,9 +38,13 @@ public class ActorDeserializer implements JsonDeserializer<Actor> {
         else
             actor.setDescription("");
 
-        ArrayList<Movie> films = new ArrayList<>();
-
+        ArrayList<Integer> films = new ArrayList<>();
         JsonArray filmsJsonArray = jsonObject.get("films").getAsJsonArray();
+        for (JsonElement film : filmsJsonArray) {
+            JsonObject tmp = film.getAsJsonObject();
+            films.add(tmp.get("filmId").getAsInt());
+        }
+        actor.setFilmsId(films);
 
         return actor;
     }
