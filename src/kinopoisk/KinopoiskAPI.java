@@ -4,6 +4,7 @@ import com.google.gson.*;
 import javafx.scene.image.Image;
 import model.Actor;
 import model.Movie;
+import model.Staff;
 import model.deserializer.ActorDeserializer;
 import model.deserializer.MovieDeserializer;
 import org.apache.http.HttpEntity;
@@ -33,9 +34,9 @@ public class KinopoiskAPI {
     static String host_v2dot1 = "https://kinopoiskapiunofficial.tech/api/v2.1";
     static String host_v1 = "https://kinopoiskapiunofficial.tech/api/v1";
 
-    public List<Movie> getMoviesByKeyword(String keyword) {
+    public ArrayList<Movie> getMoviesByKeyword(String keyword) {
         final CloseableHttpClient httpclient = HttpClients.createDefault();
-        List<Movie> movies = new ArrayList<>();
+        ArrayList<Movie> movies = new ArrayList<>();
 
         keyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
         String src = host_v2dot1 + "/films/search-by-keyword?keyword=" + keyword + "&page=1";
@@ -83,9 +84,9 @@ public class KinopoiskAPI {
         return movie;
     }
 
-    public ArrayList<Actor> getActorsByFilmId(int id) {
+    public ArrayList<Staff> getActorsByFilmId(int id) {
         final CloseableHttpClient httpclient = HttpClients.createDefault();
-        ArrayList<Actor> actors = new ArrayList<>();
+        ArrayList<Staff> actors = new ArrayList<>();
 
         String src = host_v1 + "/staff?filmId=" + id;
 
@@ -101,7 +102,7 @@ public class KinopoiskAPI {
                 JsonObject jsonObject = actorJson.getAsJsonObject();
                 JsonPrimitive jsonPrimitive = jsonObject.getAsJsonPrimitive("professionKey");
                 if (jsonPrimitive.getAsString().equals("ACTOR")) {
-                    Actor actor = gson.fromJson(actorJson, Actor.class);
+                    Staff actor = gson.fromJson(actorJson, Staff.class);
                     actors.add(actor);
                 }
             }

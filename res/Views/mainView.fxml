@@ -18,53 +18,5 @@
 <?import javafx.scene.control.Separator?>
 <VBox fx:controller="main.Controller"
       xmlns:fx="http://javafx.com/fxml" alignment="TOP_CENTER" minWidth="1024" minHeight="960" fx:id="layout">
-    <BorderPane fx:id="header" maxHeight="100" prefWidth="Infinity" minHeight="100">
-        <left>
-            <ImageView>
-                <BorderPane.margin>
-                    <Insets bottom="2" top="2" left="20" right="5"/>
-                </BorderPane.margin>
-                <Image url="@/Images/orig.png"/>
-            </ImageView>
-        </left>
-        <right>
-            <BorderPane>
-                <center>
-                    <TextField fx:id="searchField" prefWidth="500" promptText="Фильмы, сериалы, персоны" prefHeight="65"
-                    styleClass="searchField">
-                        <BorderPane.margin>
-                            <Insets right="40"/>
-                        </BorderPane.margin>
-                    </TextField>
-                </center>
-            </BorderPane>
-        </right>
-    </BorderPane>
-    <StackPane  fx:id="contentWrapper" style="-fx-padding: 10; -fx-background-color: #000000; -fx-padding: 10">
-        <VBox fx:id="contentBackground" alignment="TOP_CENTER" VBox.vgrow="ALWAYS" prefWidth="1024" prefHeight="860"/>
-        <ScrollPane fx:id="contentScrollPane" minWidth="1024" VBox.vgrow="ALWAYS"
-                    style="-fx-padding: 15; -fx-border-radius: 5; -fx-background-color: rgba(0,0,0,0.8);">
-            <BorderPane fx:id="contentBorderPane" prefWidth="1024">
-                <left>
-                    <VBox fx:id="leftColumn" maxWidth="200" minWidth="200" maxHeight="300" minHeight="300">
-
-                    </VBox>
-                </left>
-                <center>
-                    <VBox fx:id="centerColumn" style="-fx-padding: 20; -fx-spacing: 10;" minWidth="700">
-                        <Label fx:id="filmNameRu" style="-fx-text-fill: white; -fx-font-size: 40; -fx-font-weight: bold"/>
-                        <Label fx:id="filmNameEn" style="-fx-text-fill: #868686; -fx-font-size: 28;"/>
-                        <Label fx:id="filmDescription" style="-fx-text-fill: white; -fx-font-size: 18;
-                         -fx-spacing: 0; -fx-wrap-text: true"/>
-                        <Label text="О фильме" style="-fx-text-fill: white; -fx-font-size: 28;"/>
-                        <Label text="Кадры" style="-fx-text-fill: white; -fx-font-size: 28;"/>
-                    </VBox>
-                </center>
-                <right>
-                    <VBox fx:id="rightColumn" style="-fx-padding: 20; -fx-spacing: 5;">
-                    </VBox>
-                </right>
-            </BorderPane>
-        </ScrollPane>
-    </StackPane>
+    <fx:include source="header.fxml"/>
 </VBox>
