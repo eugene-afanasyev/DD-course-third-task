@@ -55,30 +55,58 @@ public class Controller {
                 }
             }
         });
-
-        showFilmPageById(301);
     }
 
     public void search(MouseEvent event) {
+        contentBackground.getChildren().clear();
+        contentBorderPane = new BorderPane();
+        leftColumn = new VBox();
+        centerColumn = new VBox();
+        rightColumn = new VBox();
+
+        contentBorderPane.prefWidth(1080);
+
         KinopoiskAPI api = new KinopoiskAPI();
         ArrayList<Movie> films = api.getMoviesByKeyword(searchField.getText());
 
         VBox vbox = new VBox();
         for (Movie film : films) {
             HBox hBox = new HBox();
-            hBox.setAlignment(Pos.CENTER);
-            hBox.setSpacing(15);
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            hBox.setSpacing(25);
             hBox.setStyle("-fx-padding: 5");
 
             ImageView imageView =
                     new ImageView(new Image(film.getPosterUrlPreview().toExternalForm()));
             imageView.setFitHeight(150);
             imageView.setPreserveRatio(true);
+            imageView.setStyle("-fx-border-width: 3; -fx-border-color: #c7dfff");
 
             Label label = new Label(film.getNameRu());
-            label.setStyle("-fx-font-family: 'Open Sans'; -fx-font-size: 30;");
+            label.setStyle("-fx-font-family: 'Open Sans'; -fx-font-size: 40; -fx-text-fill: white");
 
-            hBox.getChildren().addAll(imageView, label);
+            Label ratingAge = new Label("    " + "+" + film.getRatingAgeLimits());
+            ratingAge.setStyle("-fx-font-family: 'Open Sans'; -fx-font-size: 34; -fx-text-fill: #cdcdcd");
+
+            label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    showFilmPageById(film.getFilmId());
+                }
+            });
+
+            label.hoverProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                    if (label.isHover()) {
+                        label.setTextFill(Color.DARKORANGE);
+                    } else {
+                        label.setTextFill(Color.WHITE);
+                    }
+                }
+            });
+
+            hBox.getChildren().addAll(imageView, label, ratingAge);
             vbox.getChildren().add(hBox);
         }
         contentScrollPane.setContent(vbox);
