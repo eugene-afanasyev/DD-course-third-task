@@ -145,7 +145,14 @@ public class KinopoiskAPI {
         ){
             final HttpEntity entity = response1.getEntity();
             JsonElement jsonElement = JsonParser.parseString(EntityUtils.toString(entity));
-            JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+            JsonObject jsonObject = null;
+            try {
+                 jsonObject = jsonElement.getAsJsonObject();
+            } catch (Exception e) {
+                if (jsonElement == null)
+                    return new ArrayList<>();
+            }
             JsonArray jsonArray = jsonObject.get("frames").getAsJsonArray();
 
             int counter = 0;

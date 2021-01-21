@@ -56,7 +56,7 @@ public class Controller {
             }
         });
 
-        showActorPageById(513);
+        showFilmPageById(301);
     }
 
     public void search(MouseEvent event) {
@@ -85,6 +85,7 @@ public class Controller {
     }
 
     public void showActorPageById(int id) {
+        contentBackground.getChildren().clear();
         contentBorderPane = new BorderPane();
         leftColumn = new VBox();
         centerColumn = new VBox();
@@ -164,6 +165,13 @@ public class Controller {
                 }
             });
 
+            l.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    showFilmPageById(filmIdName.getFilmId());
+                }
+            });
+
             rightColumn.getChildren().add(l);
         }
 
@@ -175,6 +183,7 @@ public class Controller {
     }
 
     public void showFilmPageById(int id)  {
+        contentBackground.getChildren().clear();
         contentBorderPane = new BorderPane();
         leftColumn = new VBox();
         centerColumn = new VBox();
@@ -299,6 +308,13 @@ public class Controller {
                     } else {
                         l.setTextFill(Color.WHITE);
                     }
+                }
+            });
+
+            l.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    showActorPageById(actor.getStaffId());
                 }
             });
 
