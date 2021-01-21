@@ -2,6 +2,7 @@ package model.deserializer;
 
 import com.google.gson.*;
 import model.Actor;
+import model.FilmIdName;
 import model.Movie;
 
 import java.lang.reflect.Type;
@@ -26,6 +27,7 @@ public class ActorDeserializer implements JsonDeserializer<Actor> {
         actor.setBirthday(jsonObject.get("birthday").getAsString());
         actor.setBirthplace(jsonObject.get("birthplace").getAsString());
         actor.setAge(jsonObject.get("age").getAsInt());
+        actor.setProfession(jsonObject.get("profession").getAsString());
 
         try {
             actor.setPosterURL(new URL(jsonObject.get("posterUrl").getAsString()));
@@ -33,16 +35,14 @@ public class ActorDeserializer implements JsonDeserializer<Actor> {
             e.printStackTrace();
         }
 
-        if(!(jsonObject.get("description") instanceof JsonNull))
-            actor.setDescription(jsonObject.get("description").getAsString());
-        else
-            actor.setDescription("");
-
-        ArrayList<Integer> films = new ArrayList<>();
+        ArrayList<FilmIdName> films = new ArrayList<>();
         JsonArray filmsJsonArray = jsonObject.get("films").getAsJsonArray();
         for (JsonElement film : filmsJsonArray) {
             JsonObject tmp = film.getAsJsonObject();
-            films.add(tmp.get("filmId").getAsInt());
+            FilmIdName filmIdName = new FilmIdName();
+            filmIdName.setFilmId((tmp.get("filmId").getAsInt()));
+            filmIdName.setNameRu((tmp.get("nameRu").getAsString()));
+            films.add(filmIdName);
         }
         actor.setFilmsId(films);
 

@@ -60,6 +60,6 @@
 .prop-value-label {
     -fx-text-fill: white;
     -fx-font-size: 22;
-    -fx-wrap-text: true;
+    -fx-wrap-text: false;
     -fx-alignment: center-left;
 }

@@ -84,7 +84,7 @@ public class KinopoiskAPI {
         return movie;
     }
 
-    public ArrayList<Staff> getActorsByFilmId(int id) {
+    public ArrayList<Staff> getStaffByFilmId(int id) {
         final CloseableHttpClient httpclient = HttpClients.createDefault();
         ArrayList<Staff> actors = new ArrayList<>();
 

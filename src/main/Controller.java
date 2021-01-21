@@ -2,31 +2,27 @@ package main;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.geometry.Side;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.MotionBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import kinopoisk.KinopoiskAPI;
+import model.FilmIdName;
 import model.Movie;
 import model.Actor;
 import model.Staff;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Controller {
@@ -41,10 +37,10 @@ public class Controller {
     @FXML
     private TextField searchField;
 
-    public BorderPane contentBorderPane = new BorderPane();
-    public VBox leftColumn = new VBox();
-    public VBox centerColumn = new VBox();
-    public VBox rightColumn = new VBox();
+    public BorderPane contentBorderPane;
+    public VBox leftColumn;
+    public VBox centerColumn;
+    public VBox rightColumn;
 
     public void initialize() {
         searchField.setFocusTraversable(false);
@@ -60,8 +56,7 @@ public class Controller {
             }
         });
 
-        contentBorderPane.prefWidth(1024);
-        showFilmPageById(301);
+        showActorPageById(513);
     }
 
     public void search(MouseEvent event) {
@@ -89,7 +84,104 @@ public class Controller {
         contentScrollPane.setContent(vbox);
     }
 
+    public void showActorPageById(int id) {
+        contentBorderPane = new BorderPane();
+        leftColumn = new VBox();
+        centerColumn = new VBox();
+        rightColumn = new VBox();
+
+        contentBorderPane.prefWidth(1024);
+
+        KinopoiskAPI api = new KinopoiskAPI();
+        Actor actor  = api.getActorById(id);
+
+        Image poster;
+        if (actor.getPosterURL() != null) {
+            poster = new Image(actor.getPosterURL().toExternalForm());
+        } else {
+            poster = null;
+        }
+
+        ImageView preview = new ImageView(poster);
+        preview.setFitWidth(300);
+        preview.setPreserveRatio(true);
+        leftColumn.getChildren().add(preview);
+        leftColumn.setStyle("-fx-padding: 10");
+
+        ImageView bg = new ImageView(poster);
+        bg.setFitHeight(600);
+        bg.setEffect(new MotionBlur());
+        bg.setPreserveRatio(true);
+        contentBackground.setAlignment(Pos.TOP_CENTER);
+        contentBackground.getChildren().add(bg);
+
+        leftColumn.setStyle("-fx-padding: 10");
+
+        Label actorNameRu = new Label(actor.getNameRu());
+        actorNameRu.setStyle("-fx-text-fill: #ffffff; -fx-font-size: 40; -fx-font-weight: bold");
+
+        Label actorNameEn = new Label(actor.getNameEn());
+        actorNameEn.setStyle("-fx-text-fill: #868686; -fx-font-size: 28;");
+
+        Label aboutActorLabelTitle = new Label("О персоне");
+        aboutActorLabelTitle.setStyle("-fx-text-fill: #ffffff; -fx-font-size: 30;");
+
+        centerColumn.getChildren().addAll(actorNameRu, actorNameEn, aboutActorLabelTitle);
+
+        centerColumn.setSpacing(10);
+        centerColumn.setStyle("-fx-padding: 30");
+        centerColumn.setMinWidth(600);
+        centerColumn.setPrefWidth(700);
+
+        generateInfoField("Карьера", actor.getProfession());
+        generateInfoField("Рост", Integer.toString(actor.getGrowth()));
+        generateInfoField("Дата рождения", actor.getBirthday());
+        generateInfoField("Место рождения", actor.getBirthplace() + " - " + actor.getAge() + " y.o.");
+        generateInfoField("Всего фильмов", Integer.toString(actor.getFilmsId().size()));
+
+        Label someFilmsTitle = new Label("Фильмы");
+        someFilmsTitle.setStyle("-fx-text-fill: white; -fx-font-size: 24");
+        rightColumn.getChildren().add(someFilmsTitle);
+
+        int counter = 0;
+        for (FilmIdName filmIdName : actor.getFilmsId()) {
+            if (filmIdName.getNameRu().equals(""))
+                continue;
+            else if (counter++ == 10)
+                break;
+
+            Label l = new Label(filmIdName.getNameRu());
+
+            l.setStyle("-fx-wrap-text: true; -fx-font-size: 18; -fx-text-fill: #ffffff");
+            l.hoverProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                    if (l.isHover()) {
+                        l.setTextFill(Color.DARKORANGE);
+                    } else {
+                        l.setTextFill(Color.WHITE);
+                    }
+                }
+            });
+
+            rightColumn.getChildren().add(l);
+        }
+
+        contentBorderPane.setLeft(leftColumn);
+        contentBorderPane.setRight(rightColumn);
+        contentBorderPane.setCenter(centerColumn);
+        contentScrollPane.setContent(contentBorderPane);
+        contentScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+    }
+
     public void showFilmPageById(int id)  {
+        contentBorderPane = new BorderPane();
+        leftColumn = new VBox();
+        centerColumn = new VBox();
+        rightColumn = new VBox();
+
+        contentBorderPane.prefWidth(1080);
+
         KinopoiskAPI api = new KinopoiskAPI();
         Movie movie = api.getMovieById(id);
         Image poster;
@@ -99,13 +191,11 @@ public class Controller {
             poster = null;
         }
 
-        BackgroundImage movieBg= new BackgroundImage(
-                poster, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                new BackgroundPosition(Side.LEFT, 0, false, Side.TOP, 0, false),
-                new BackgroundSize(contentWrapper.getPrefWidth(), contentWrapper.getPrefHeight(),
-                        false, false, false, true));
-
-        contentBackground.setBackground(new Background(movieBg));
+        ImageView bg = new ImageView(poster);
+        bg.setEffect(new MotionBlur());
+        bg.setPreserveRatio(true);
+        bg.setFitHeight(600);
+        contentBackground.getChildren().add(bg);
 //        contentBackground.setEffect(new GaussianBlur());
 
         // setting on left column content
@@ -166,7 +256,7 @@ public class Controller {
         HBox hbox = new HBox();
         hbox.setPrefWidth(centerColumn.getMinWidth());
         hbox.setSpacing(5);
-        hbox.setStyle("-fx-background-color: #c5cffc");
+        hbox.setStyle("-fx-background-color: #1d1e40");
         hbox.setPadding(new Insets(15, 5, 15, 5));
         scrollPane.setContent(hbox);
 
@@ -189,18 +279,18 @@ public class Controller {
         centerColumn.setPrefWidth(700);
 
         Label actorsLabelTitle = new Label("В главных ролях: ");
-        actorsLabelTitle.setStyle("-fx-text-fill: white; -fx-font-size: 30");
-        rightColumn.getChildren().add(actorsLabelTitle);
+        actorsLabelTitle.setStyle("-fx-text-fill: white; -fx-font-size: 24");
+        rightColumn.getChildren().addAll(actorsLabelTitle, new Separator());
 
         // setting on right column content
-        ArrayList<Staff> actors = api.getActorsByFilmId(movie.getFilmId());
+        ArrayList<Staff> actors = api.getStaffByFilmId(movie.getFilmId());
         int counter = 0;
         for (Staff actor : actors) {
             if (counter++ == 10)
                 break;
 
             Label l = new Label(actor.getNameRu());
-            l.setStyle("-fx-wrap-text: true; -fx-font-size: 22; -fx-text-fill: #ffffff");
+            l.setStyle("-fx-wrap-text: true; -fx-font-size: 18; -fx-text-fill: #ffffff");
             l.hoverProperty().addListener(new ChangeListener<Boolean>() {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {

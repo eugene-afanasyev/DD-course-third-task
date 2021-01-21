@@ -17,11 +17,17 @@ public class Actor {
     private String birthday;
     private String birthplace;
 
+    private String profession;
+
     private int age;
 
-    private ArrayList<Integer> filmsId;
+    private ArrayList<FilmIdName> filmsId;
 
     private URL posterURL;
+
+    public String getProfession() {
+        return profession;
+    }
 
     public String getDescription() {
         return description;
@@ -59,7 +65,7 @@ public class Actor {
         return birthplace;
     }
 
-    public ArrayList<Integer> getFilmsId() {
+    public ArrayList<FilmIdName> getFilmsId() {
         return filmsId;
     }
 
@@ -69,6 +75,10 @@ public class Actor {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
     }
 
     public void setId(int id) {
@@ -103,7 +113,7 @@ public class Actor {
         this.birthplace = birthplace;
     }
 
-    public void setFilmsId(ArrayList<Integer> filmsId) {
+    public void setFilmsId(ArrayList<FilmIdName> filmsId) {
         this.filmsId = filmsId;
     }
 
